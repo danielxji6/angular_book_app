@@ -1,10 +1,45 @@
+<!-- New book container -->
 <div class="container">
-Welcome to Book Index (templates/books-index.html)
-<hr>
-<!--  Say Hello -->
-<hr>
-<ul>
- <li> <!-- books will go here -->
- </li>
-</ul>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <h3>Make new book:</h3>
+      <form data-ng-submit="bc.createBook()">
+        <input type="text" class="form-control" data-ng-model="bc.newBook.title" placeholder="Title">
+        <input type="text" class="form-control" data-ng-model="bc.newBook.author" placeholder="Author">
+        <input type="text" class="form-control" data-ng-model="bc.newBook.image" placeholder="Image URL">
+        <input type="text" class="form-control" data-ng-model="bc.newBook.releaseDate" placeholder="Release Date">
+        <input type="submit" class="btn btn-success" value="Save Book" />
+      </form>
+    </div>
+  </div>
+</div>
+<br><hr>
+
+<!-- Books list container -->
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3" data-ng-repeat="book in bc.books">
+      <img data-ng-src="{{ book.image }}" alt="cover" width="200px" class="col-md-6"/>
+      <div class="col-md-6">
+        <!-- book info -->
+        <p>Title: {{ book.title }}</p>
+        <p>Author: {{ book.author }}</p>
+        <p>Date: {{ book.releaseDate }}</p>
+
+        <a class="btn btn-default" data-ng-click="book.editForm = !book.editForm">Edit</a>
+        <a class="btn btn-default" data-ng-click="bc.deleteBook(book)">Delete</a>
+
+        <!-- edit form for book -->
+        <form data-ng-show="book.editForm" data-ng-submit="bc.updateBook(book)">
+          <input type="text" class="form-control" data-ng-model="book.title" placeholder="Title">
+          <input type="text" class="form-control" data-ng-model="book.author" placeholder="Author">
+          <input type="text" class="form-control" data-ng-model="book.image" placeholder="Image URL">
+          <input type="text" class="form-control" data-ng-model="book.releaseDate" placeholder="Release Date">
+          <input type="submit" class="btn btn-success" value="Edit Book" />
+        </form>
+
+      </div>
+      <br>
+    </div>
+  </div>
 </div>
